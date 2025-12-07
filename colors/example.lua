@@ -1,0 +1,110 @@
+local colors = require("colors")
+
+vim.cmd("highlight clear")
+if vim.fn.exists("syntax_on") then
+    vim.cmd("syntax reset")
+end
+
+vim.g.colors_name = "example"
+
+local group = {
+    default = { fg = colors.gray7, bg = colors.gray1 },
+    fn = { fg = colors.red },
+    type = { fg = colors.blue },
+    keyword = { fg = colors.yellow },
+    literal = { fg = colors.green },
+    punctuation = { fg = colors.gray6 },
+    comment = { fg = colors.gray6, bg = colors.gray0 },
+    doc_comment = { fg = colors.gray1, bg = colors.gray7 },
+    cursor = { fg = colors.gray1, bg = colors.yellow },
+}
+
+local function hl(group, opts)
+    vim.api.nvim_set_hl(0, group, opts)
+end
+
+-- Reset colors
+for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+    vim.api.nvim_set_hl(0, group, {})
+end
+
+vim.opt.guicursor = {
+    "n-v-c:block-Cursor",   -- Normal/Visual/Command: block with Cursor colors
+    "i-ci-ve:ver25-Cursor", -- Insert: vertical bar with iCursor colors
+    "r-cr:hor25-Cursor",    -- Replace: horizontal bar with rCursor colors
+}
+
+hl("Normal", group.default)
+hl("Number", group.literal)
+hl("Statement", group.keyword)
+hl("Type", group.type)
+hl("String", group.literal)
+hl("Comment", group.comment)
+hl("Whitespace", { fg = colors.gray4 })
+hl("Function", group.fn)
+
+hl("LineNr", { fg = colors.gray4 })
+hl("LineNrAbove", { fg = colors.gray4 })
+hl("LineNrBelow", { fg = colors.gray4 })
+hl("CursorLineNr", { fg = colors.red })
+hl("CursorLine", { bg = colors.gray2 })
+hl("Visual", { bg = colors.gray3 })
+hl("Cursor", group.cursor)
+hl("WinSeparator", { bg = colors.gray0 })
+-- hl("MsgArea", { fg = colors.gray7, bg = colors.gray1 })
+
+-- Plugins
+hl("StatusLine", { bg = colors.gray3 })
+hl("NormalFloat", { bg = colors.gray3 })
+hl("NvimTreeNormal", { fg = colors.gray7, bg = colors.gray0 })
+
+-- nvim-cmp
+do
+    hl("Pmenu", { bg = colors.gray3 })
+    hl("PmenuSel", { bg = colors.gray4 })
+    hl("PmenuSbar", { bg = colors.gray0 })
+    hl("PmenuThumb", { bg = colors.gray5 })
+
+    hl("CmpItemKindVariable", { fg = colors.gray7 })
+    hl("CmpItemKindFunction", group.fn)
+    hl("CmpItemKindMethod", group.fn)
+    hl("CmpItemKindKeyword", group.keyword)
+    hl("CmpItemKindClass", group.type)
+    hl("CmpItemKindModule", group.type)
+    hl("CmpItemKindStruct", group.type)
+end
+
+------------------------------
+--- Treesitter definitions ---
+------------------------------
+
+hl("@string", group.literal)
+hl("@number", group.literal)
+hl("@number.float", group.literal)
+
+hl("@operator", group.fn)
+hl("@function", group.fn)
+hl("@function.builtin", group.fn)
+-- referencing a struct's function definition
+hl("@lsp.type.function", group.fn)
+
+hl("@keyword", group.keyword)
+
+hl("@type", group.type)
+hl("@type.builtin", group.type)
+hl("@lsp.type.namespace", group.type)
+
+hl("@comment", group.comment)
+hl("@comment.documentation", group.doc_comment)
+hl("@lsp.mod.documentation", group.doc_comment)
+
+hl("@punctuation", group.punctuation)
+
+-- hl("@lsp.typemod.function.declaration", { fg = colors.gray1, bg = colors.red })
+-- hl("@lsp.typemod.struct.declaration", { fg = colors.gray1, bg = colors.gray3iolet })
+-- hl("@lsp.typemod.namespace.declaration", { fg = colors.gray1, bg = colors.gray3iolet })
+-- hl("@lsp.typemod.type.declaration", { fg = colors.gray1, bg = colors.gray3iolet })
+
+hl("@markup.heading", group.fn)
+hl("@markup.list", group.fn)
+hl("@markup.raw.block", { bg = colors.gray0 })
