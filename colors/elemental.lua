@@ -5,13 +5,17 @@ if vim.fn.exists("syntax_on") then
     vim.cmd("syntax reset")
 end
 
-vim.g.colors_name = "example"
+vim.g.colors_name = "elemental"
 
 local group = {
     default = { fg = colors.gray7, bg = colors.gray1 },
+    -- fire (red) -> change
     fn = { fg = colors.red },
+    -- water (blue) -> shape
     type = { fg = colors.blue },
+    -- air (yellow) -> vital, ambient
     keyword = { fg = colors.yellow },
+    -- earth (green) -> concrete, tangible
     literal = { fg = colors.green },
     punctuation = { fg = colors.gray6 },
     comment = { fg = colors.gray6, bg = colors.gray0 },
@@ -19,8 +23,8 @@ local group = {
     cursor = { fg = colors.gray1, bg = colors.yellow },
 }
 
-local function hl(group, opts)
-    vim.api.nvim_set_hl(0, group, opts)
+local function hl(name, opts)
+    vim.api.nvim_set_hl(0, name, opts)
 end
 
 -- Reset colors
@@ -44,8 +48,6 @@ hl("Whitespace", { fg = colors.gray4 })
 hl("Function", group.fn)
 
 hl("LineNr", { fg = colors.gray4 })
-hl("LineNrAbove", { fg = colors.gray4 })
-hl("LineNrBelow", { fg = colors.gray4 })
 hl("CursorLineNr", { fg = colors.red })
 hl("CursorLine", { bg = colors.gray2 })
 hl("Visual", { bg = colors.gray3 })
@@ -101,11 +103,6 @@ hl("@comment.documentation", group.doc_comment)
 hl("@lsp.mod.documentation", group.doc_comment)
 
 hl("@punctuation", group.punctuation)
-
--- hl("@lsp.typemod.function.declaration", { fg = colors.gray1, bg = colors.red })
--- hl("@lsp.typemod.struct.declaration", { fg = colors.gray1, bg = colors.gray3iolet })
--- hl("@lsp.typemod.namespace.declaration", { fg = colors.gray1, bg = colors.gray3iolet })
--- hl("@lsp.typemod.type.declaration", { fg = colors.gray1, bg = colors.gray3iolet })
 
 hl("@markup.heading", group.fn)
 hl("@markup.list", group.fn)

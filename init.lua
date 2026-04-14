@@ -3,4 +3,4 @@ require("keymap")
 require("layouts")
 require("config.lazy")
 
-vim.cmd.colorscheme("example")
+vim.cmd.colorscheme("elemental")
