@@ -35,7 +35,7 @@ local config = {
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "lua", "zig", "markdown", "vim", "vimdoc" },
+                ensure_installed = { "lua", "zig", "markdown", "vim", "vimdoc", "python" },
                 highlight = { enable = true },
                 indent = { enable = true },
             })
@@ -86,7 +86,8 @@ function setup_language_servers()
     vim.lsp.enable("zig")
 
     vim.lsp.config["python"] = {
-        cmd = { "ruff", "server" },
+        -- cmd = { "ruff", "server" },
+        cmd = { "pyright" },
         filetypes = { "python" },
         root_markers = { ".git" },
         capabilities = lsp_capabilities,

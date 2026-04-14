@@ -78,6 +78,7 @@ end
 --- Treesitter definitions ---
 ------------------------------
 
+hl("@boolean", group.literal)
 hl("@string", group.literal)
 hl("@number", group.literal)
 hl("@number.float", group.literal)
@@ -93,6 +94,7 @@ hl("@keyword", group.keyword)
 hl("@type", group.type)
 hl("@type.builtin", group.type)
 hl("@lsp.type.namespace", group.type)
+hl("@constant.builtin", group.type)
 
 hl("@comment", group.comment)
 hl("@comment.documentation", group.doc_comment)

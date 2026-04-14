@@ -1,4 +1,5 @@
 local opt = vim.opt
+local api = vim.api
 
 -- Disable Netrw
 vim.g.loaded_netrw = 1
@@ -30,6 +31,16 @@ opt.listchars = {
     multispace = "│   ",
 }
 vim.g.indentline_char = "│"
+
+-- Disable indent markers in terminal buffers (e.g. opencode TUI)
+api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+    desc = "Disable listchars in terminal buffers",
+    callback = function()
+        if vim.bo.buftype == "terminal" then
+            vim.opt_local.list = false
+        end
+    end,
+})
 vim.opt.fillchars = {
     vert = " ",
     eob = " ",
@@ -47,7 +58,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Render editor char width line
-local api = vim.api
 local bo = vim.bo
 api.nvim_create_autocmd("FileType", {
     callback = function()

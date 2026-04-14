@@ -4,9 +4,6 @@ vim.api.nvim_create_autocmd("User", {
         -- Only run layout setup if no files were specified
         if vim.fn.argc() == 0 then
             vim.cmd("NvimTreeOpen")
-            vim.cmd("tabnew")
-            vim.cmd("LayoutChat")
-            vim.cmd("tabprev")
         end
     end,
     once = true,
