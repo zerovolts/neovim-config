@@ -24,7 +24,7 @@ return {
                         z = { bg = colors.dark, fg = colors.mfg },
                     },
                     visual = {
-                        a = { bg = colors.violet, fg = colors.dark },
+                        a = { bg = colors.blue, fg = colors.dark },
                         z = { bg = colors.dark, fg = colors.mfg },
                     },
                     command = {
