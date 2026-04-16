@@ -1,7 +1,27 @@
+-- Each of these LSP servers gets auto-installed along with the Treesitter grammar.
+-- They still need to be configured in `setup_language_servers`.
+local lsp_servers = {
+    lua = "lua-language-server",
+    python = "pyright",
+    zig = "zls",
+}
+
 local config = {
     {
         "williamboman/mason.nvim",
-        config = true,
+        config = function()
+            require("mason").setup()
+            local registry = require("mason-registry")
+            -- Auto-install servers defined in `lsp_servers`
+            registry.refresh(function()
+                for _, name in pairs(lsp_servers) do
+                    local ok, pkg = pcall(registry.get_package, name)
+                    if ok and not pkg:is_installed() then
+                        pkg:install()
+                    end
+                end
+            end)
+        end,
     },
 
     {
@@ -25,7 +45,8 @@ local config = {
                 }),
             })
 
-            setup_language_servers()
+            local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+            setup_language_servers(lsp_capabilities)
         end,
     },
 
@@ -35,7 +56,10 @@ local config = {
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "lua", "zig", "markdown", "vim", "vimdoc", "python" },
+                ensure_installed = vim.list_extend(
+                    vim.tbl_keys(lsp_servers),
+                    { "markdown", "vim", "vimdoc" }
+                ),
                 highlight = { enable = true },
                 indent = { enable = true },
             })
@@ -55,9 +79,7 @@ local config = {
     }
 }
 
-function setup_language_servers()
-    local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
+function setup_language_servers(lsp_capabilities)
     vim.lsp.config["lua"] = {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
@@ -75,7 +97,6 @@ function setup_language_servers()
             },
         },
     }
-    vim.lsp.enable("lua")
 
     vim.lsp.config["zig"] = {
         cmd = { "zls" },
@@ -83,16 +104,17 @@ function setup_language_servers()
         root_markers = { "build.zig", "build.zig.zon", ".git" },
         capabilities = lsp_capabilities,
     }
-    vim.lsp.enable("zig")
 
     vim.lsp.config["python"] = {
-        -- cmd = { "ruff", "server" },
         cmd = { "pyright" },
         filetypes = { "python" },
-        root_markers = { ".git" },
+        root_markers = { "pyproject.toml", "setup.py", "requirements.txt", ".git" },
         capabilities = lsp_capabilities,
     }
-    vim.lsp.enable("python")
+
+    for language, _ in pairs(lsp_servers) do
+        vim.lsp.enable(language)
+    end
 end
 
 return config
