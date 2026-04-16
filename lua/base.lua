@@ -26,11 +26,9 @@ opt.signcolumn = "yes"
 
 opt.list = true
 opt.listchars = {
-    -- space = "·",
-    -- multispace = "▹   ",
-    multispace = "│   ",
+    leadmultispace = "▏   ",
+    tab = "→ ",
 }
-vim.g.indentline_char = "│"
 
 -- Disable indent markers in terminal buffers (e.g. opencode TUI)
 api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
