@@ -7,6 +7,8 @@ local lsp_servers = {
     html = "html-lsp",
     css = "css-lsp",
     zig = "zls",
+    c = "clangd",
+    go = "gopls",
 }
 
 local config = {
@@ -99,6 +101,20 @@ function setup_language_servers(lsp_capabilities)
                 },
             },
         },
+    }
+
+    vim.lsp.config["go"] = {
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_markers = { "go.work", "go.mod", ".git" },
+        capabilities = lsp_capabilities,
+    }
+
+    vim.lsp.config["c"] = {
+        cmd = { "clangd" },
+        filetypes = { "c", "cpp" },
+        root_markers = { "compile_commands.json", "compile_flags.txt", ".git" },
+        capabilities = lsp_capabilities,
     }
 
     vim.lsp.config["zig"] = {
