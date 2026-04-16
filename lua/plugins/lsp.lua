@@ -3,6 +3,9 @@
 local lsp_servers = {
     lua = "lua-language-server",
     python = "pyright",
+    typescript = "typescript-language-server",
+    html = "html-lsp",
+    css = "css-lsp",
     zig = "zls",
 }
 
@@ -58,7 +61,7 @@ local config = {
             require("nvim-treesitter.configs").setup({
                 ensure_installed = vim.list_extend(
                     vim.tbl_keys(lsp_servers),
-                    { "markdown", "vim", "vimdoc" }
+                    { "javascript", "tsx", "markdown", "vim", "vimdoc" }
                 ),
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -102,6 +105,27 @@ function setup_language_servers(lsp_capabilities)
         cmd = { "zls" },
         filetypes = { "zig" },
         root_markers = { "build.zig", "build.zig.zon", ".git" },
+        capabilities = lsp_capabilities,
+    }
+
+    vim.lsp.config["html"] = {
+        cmd = { "vscode-html-language-server", "--stdio" },
+        filetypes = { "html" },
+        root_markers = { "package.json", ".git" },
+        capabilities = lsp_capabilities,
+    }
+
+    vim.lsp.config["css"] = {
+        cmd = { "vscode-css-language-server", "--stdio" },
+        filetypes = { "css", "scss", "less" },
+        root_markers = { "package.json", ".git" },
+        capabilities = lsp_capabilities,
+    }
+
+    vim.lsp.config["typescript"] = {
+        cmd = { "typescript-language-server", "--stdio" },
+        filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+        root_markers = { "tsconfig.json", "package.json", ".git" },
         capabilities = lsp_capabilities,
     }
 
