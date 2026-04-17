@@ -23,8 +23,5 @@ return {
                 keymap.set("n", "<leader>hd", gitsigns.diffthis)
             end,
         },
-        keys = {
-            { "<leader>hs", },
-        },
     },
 }
