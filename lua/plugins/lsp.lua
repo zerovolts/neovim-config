@@ -85,7 +85,9 @@ local config = {
 }
 
 function setup_language_servers(lsp_capabilities)
-    vim.lsp.config["lua"] = {
+    -- The config keys can be anything, but we're passing in the lsp server
+    -- name so that we can make use of it in lualine.
+    vim.lsp.config[lsp_servers["lua"]] = {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
         root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
@@ -103,57 +105,57 @@ function setup_language_servers(lsp_capabilities)
         },
     }
 
-    vim.lsp.config["go"] = {
+    vim.lsp.config[lsp_servers["go"]] = {
         cmd = { "gopls" },
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
         root_markers = { "go.work", "go.mod", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    vim.lsp.config["c"] = {
+    vim.lsp.config[lsp_servers["c"]] = {
         cmd = { "clangd" },
         filetypes = { "c", "cpp" },
         root_markers = { "compile_commands.json", "compile_flags.txt", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    vim.lsp.config["zig"] = {
+    vim.lsp.config[lsp_servers["zig"]] = {
         cmd = { "zls" },
         filetypes = { "zig" },
         root_markers = { "build.zig", "build.zig.zon", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    vim.lsp.config["html"] = {
+    vim.lsp.config[lsp_servers["html"]] = {
         cmd = { "vscode-html-language-server", "--stdio" },
         filetypes = { "html" },
         root_markers = { "package.json", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    vim.lsp.config["css"] = {
+    vim.lsp.config[lsp_servers["css"]] = {
         cmd = { "vscode-css-language-server", "--stdio" },
         filetypes = { "css", "scss", "less" },
         root_markers = { "package.json", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    vim.lsp.config["typescript"] = {
+    vim.lsp.config[lsp_servers["typescript"]] = {
         cmd = { "typescript-language-server", "--stdio" },
         filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
         root_markers = { "tsconfig.json", "package.json", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    vim.lsp.config["python"] = {
+    vim.lsp.config[lsp_servers["python"]] = {
         cmd = { "pyright" },
         filetypes = { "python" },
         root_markers = { "pyproject.toml", "setup.py", "requirements.txt", ".git" },
         capabilities = lsp_capabilities,
     }
 
-    for language, _ in pairs(lsp_servers) do
-        vim.lsp.enable(language)
+    for _, server_name in pairs(lsp_servers) do
+        vim.lsp.enable(server_name)
     end
 end
 
