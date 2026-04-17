@@ -4,8 +4,14 @@ return {
         event = "BufWritePre",
         config = function()
             require("conform").setup({
+                formatters = {
+                    black = {
+                        prepend_args = { "--fast" },
+                    },
+                },
                 formatters_by_ft = {
                     lua = { "stylua" },
+                    python = { "black" },
                 },
                 format_on_save = {
                     timeout_ms = 500,
@@ -26,6 +32,7 @@ return {
         config = function()
             require("lint").linters_by_ft = {
                 lua = { "selene" },
+                python = { "ruff" },
             }
 
             vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {

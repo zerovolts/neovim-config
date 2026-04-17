@@ -1,11 +1,11 @@
 -- Non-LSP tools (formatters/linters) to auto-install via Mason
-local tools = { "stylua", "selene" }
+local tools = { "stylua", "selene", "black", "ruff" }
 
 -- Each of these LSP servers gets auto-installed along with the Treesitter grammar.
 -- They still need to be configured in `setup_language_servers`.
 local lsp_servers = {
     lua = "lua-language-server",
-    python = "pyright",
+    python = "basedpyright",
     typescript = "typescript-language-server",
     html = "html-lsp",
     css = "css-lsp",
@@ -157,7 +157,7 @@ function setup_language_servers(lsp_capabilities)
     }
 
     vim.lsp.config[lsp_servers["python"]] = {
-        cmd = { "pyright" },
+        cmd = { "basedpyright-langserver", "--stdio" },
         filetypes = { "python" },
         root_markers = { "pyproject.toml", "setup.py", "requirements.txt", ".git" },
         capabilities = lsp_capabilities,
