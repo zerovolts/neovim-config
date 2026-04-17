@@ -1,5 +1,5 @@
 -- Non-LSP tools (formatters/linters) to auto-install via Mason
-local tools = { "stylua", "luacheck" }
+local tools = { "stylua", "selene" }
 
 -- Each of these LSP servers gets auto-installed along with the Treesitter grammar.
 -- They still need to be configured in `setup_language_servers`.

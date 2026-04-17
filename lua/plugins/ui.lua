@@ -66,6 +66,35 @@ return {
                         end
                         return "ts(×)"
                     end,
+                    -- Formatter
+                    function()
+                        local ok, conform = pcall(require, "conform")
+                        if not ok then
+                            return ""
+                        end
+                        local formatters = vim.tbl_map(function(f)
+                            return f.name
+                        end, conform.list_formatters(vim.api.nvim_get_current_buf()))
+                        if #formatters == 0 then
+                            return "fmt(×)"
+                        end
+                        return "fmt(" .. table.concat(formatters, ", ") .. ")"
+                    end,
+                    -- Linter
+                    function()
+                        local ok, lint = pcall(require, "lint")
+                        if not ok then
+                            return ""
+                        end
+                        local linters = vim.tbl_filter(function(name)
+                            local linter = lint.linters[name]
+                            return linter and vim.fn.executable(linter.cmd) == 1
+                        end, lint.linters_by_ft[vim.bo.filetype] or {})
+                        if #linters == 0 then
+                            return "lint(×)"
+                        end
+                        return "lint(" .. table.concat(linters, ", ") .. ")"
+                    end,
                 },
                 lualine_z = { "location" },
             },
