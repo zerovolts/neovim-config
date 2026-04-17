@@ -76,7 +76,7 @@ api.nvim_create_autocmd("BufWritePre", {
         if vim.bo.buftype == "" then
             lsp.buf.format()
         end
-    end
+    end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {

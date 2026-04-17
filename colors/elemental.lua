@@ -33,9 +33,9 @@ for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
 end
 
 vim.opt.guicursor = {
-    "n-v-c:block-Cursor",   -- Normal/Visual/Command: block with Cursor colors
+    "n-v-c:block-Cursor", -- Normal/Visual/Command: block with Cursor colors
     "i-ci-ve:ver25-Cursor", -- Insert: vertical bar with iCursor colors
-    "r-cr:hor25-Cursor",    -- Replace: horizontal bar with rCursor colors
+    "r-cr:hor25-Cursor", -- Replace: horizontal bar with rCursor colors
 }
 
 hl("Normal", group.default)

@@ -18,8 +18,8 @@ return {
                 local end_line = vim.fn.line(".")
 
                 -- Exit visual mode and comment
-                local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
-                vim.api.nvim_feedkeys(esc, 'nx', false)
+                local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+                vim.api.nvim_feedkeys(esc, "nx", false)
                 api.toggle.linewise(vim.fn.visualmode())
 
                 -- Restore visual selection
@@ -27,11 +27,11 @@ return {
                 vim.fn.setpos("'>", { 0, end_line, 999, 0 })
 
                 -- Re-enter visual mode
-                vim.cmd('normal! gv')
+                vim.cmd("normal! gv")
             end
 
             vim.keymap.set("v", "<C-/>", handler)
             vim.keymap.set("v", "<C-_>", handler)
-        end
+        end,
     },
 }

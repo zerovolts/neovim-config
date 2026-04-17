@@ -4,9 +4,9 @@ return {
         cmd = "LoveRun",
         config = true,
         keys = {
-            { "<leader>v",  ft = "lua",          desc = "LÖVE" },
-            { "<leader>vv", "<cmd>LoveRun<cr>",  ft = "lua",   desc = "Run LÖVE" },
-            { "<leader>vs", "<cmd>LoveStop<cr>", ft = "lua",   desc = "Stop LÖVE" },
+            { "<leader>v", ft = "lua", desc = "LÖVE" },
+            { "<leader>vv", "<cmd>LoveRun<cr>", ft = "lua", desc = "Run LÖVE" },
+            { "<leader>vs", "<cmd>LoveStop<cr>", ft = "lua", desc = "Stop LÖVE" },
         },
-    }
+    },
 }

@@ -1,3 +1,6 @@
+-- Non-LSP tools (formatters/linters) to auto-install via Mason
+local tools = { "stylua", "luacheck" }
+
 -- Each of these LSP servers gets auto-installed along with the Treesitter grammar.
 -- They still need to be configured in `setup_language_servers`.
 local lsp_servers = {
@@ -25,6 +28,12 @@ local config = {
                         pkg:install()
                     end
                 end
+                for _, name in ipairs(tools) do
+                    local ok, pkg = pcall(registry.get_package, name)
+                    if ok and not pkg:is_installed() then
+                        pkg:install()
+                    end
+                end
             end)
         end,
     },
@@ -41,7 +50,7 @@ local config = {
                 snippet = {
                     expand = function(args)
                         vim.snippet.expand(args.body)
-                    end
+                    end,
                 },
                 mapping = cmp.mapping.preset.insert({
                     ["<Enter>"] = cmp.mapping.confirm({ select = true }),
@@ -68,7 +77,7 @@ local config = {
                 highlight = { enable = true },
                 indent = { enable = true },
             })
-        end
+        end,
     },
 
     {
@@ -81,7 +90,7 @@ local config = {
                 virtual_text = false,
             })
         end,
-    }
+    },
 }
 
 function setup_language_servers(lsp_capabilities)
@@ -95,7 +104,7 @@ function setup_language_servers(lsp_capabilities)
         settings = {
             Lua = {
                 runtime = {
-                    version = "LuaJIT"
+                    version = "LuaJIT",
                 },
                 workspace = {
                     checkThirdParty = false,

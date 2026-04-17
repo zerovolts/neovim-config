@@ -3,7 +3,7 @@ local colors = require("colors")
 return {
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             options = {
                 theme = {
@@ -47,8 +47,17 @@ return {
                     -- LSP
                     function()
                         local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
-                        if #clients == 0 then return "lsp(×)" end
-                        return "lsp(" .. table.concat(vim.tbl_map(function(c) return c.name end, clients), ", ") .. ")"
+                        if #clients == 0 then
+                            return "lsp(×)"
+                        end
+                        return "lsp("
+                            .. table.concat(
+                                vim.tbl_map(function(c)
+                                    return c.name
+                                end, clients),
+                                ", "
+                            )
+                            .. ")"
                     end,
                     -- Treesitter
                     function()
@@ -116,7 +125,7 @@ return {
         config = true,
         keys = {
             { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Trouble" },
-        }
+        },
     },
 
     {
@@ -126,5 +135,4 @@ return {
             { "<C-j>", "<cmd>ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle Terminal" },
         },
     },
-
 }
