@@ -65,22 +65,6 @@ local config = {
     },
 
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = vim.list_extend(
-                    vim.tbl_keys(lsp_servers),
-                    { "javascript", "tsx", "markdown", "vim", "vimdoc" }
-                ),
-                highlight = { enable = true },
-                indent = { enable = true },
-            })
-        end,
-    },
-
-    {
         -- "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         "maan2003/lsp_lines.nvim",
         event = "LspAttach",
