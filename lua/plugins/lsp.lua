@@ -65,6 +65,17 @@ local config = {
     },
 
     {
+        -- Lightweight plugin for installing Treesitter parsers
+        "romus204/tree-sitter-manager.nvim",
+        dependencies = {}, -- tree-sitter CLI must be installed system-wide
+        config = function()
+            require("tree-sitter-manager").setup({
+                ensure_installed = vim.list_extend(vim.tbl_keys(lsp_servers), { "javascript", "tsx", "markdown" }),
+            })
+        end,
+    },
+
+    {
         -- "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         "maan2003/lsp_lines.nvim",
         event = "LspAttach",
