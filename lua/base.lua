@@ -30,6 +30,8 @@ opt.listchars = {
     tab = "→ ",
 }
 
+require("vim._core.ui2").enable()
+
 -- Disable indent markers in terminal buffers (e.g. opencode TUI)
 api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
     desc = "Disable listchars in terminal buffers",
