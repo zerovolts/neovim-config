@@ -14,7 +14,8 @@ local lsp_servers = {
     go = "gopls",
 }
 
-local function setup_language_servers(lsp_capabilities)
+local function setup_language_servers()
+    local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
     -- The config keys can be anything, but we're passing in the lsp server
     -- name so that we can make use of it in lualine.
     vim.lsp.config[lsp_servers["lua"]] = {
@@ -110,32 +111,7 @@ local config = {
                     end
                 end
             end)
-        end,
-    },
-
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = { "hrsh7th/cmp-nvim-lsp" },
-        config = function()
-            local cmp = require("cmp")
-            cmp.setup({
-                sources = {
-                    { name = "nvim_lsp" },
-                },
-                snippet = {
-                    expand = function(args)
-                        vim.snippet.expand(args.body)
-                    end,
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ["<Enter>"] = cmp.mapping.confirm({ select = true }),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                }),
-            })
-
-            local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-            setup_language_servers(lsp_capabilities)
+            setup_language_servers()
         end,
     },
 

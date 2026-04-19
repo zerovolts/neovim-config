@@ -35,9 +35,36 @@ keymap.set("n", "<C-_>", "gcc", { remap = true })
 keymap.set("v", "<C-/>", "gc gv", { remap = true })
 keymap.set("v", "<C-_>", "gc gv", { remap = true })
 
+-- Allow Enter key for selecting a completion option
+vim.keymap.set("i", "<CR>", function()
+    return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true })
+
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
+        -- Set up vim.lsp.completion menu
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = false })
+            vim.api.nvim_create_autocmd("TextChangedI", {
+                buffer = event.buf,
+                callback = function()
+                    local col = vim.api.nvim_win_get_cursor(0)[2]
+                    if col == 0 then
+                        return
+                    end
+                    local line = vim.api.nvim_get_current_line()
+                    if line:sub(col, col):match("[%w_%.]") then
+                        vim.schedule(function()
+                            local keys = vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true)
+                            vim.api.nvim_feedkeys(keys, "n", false)
+                        end)
+                    end
+                end,
+            })
+        end
+
         local opts = { buffer = event.buf }
 
         vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)

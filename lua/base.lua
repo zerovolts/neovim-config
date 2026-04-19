@@ -46,6 +46,8 @@ vim.opt.fillchars = {
     eob = " ",
 }
 
+opt.completeopt = { "menu", "menuone", "noinsert", "noselect", "popup" }
+
 opt.termguicolors = true
 
 opt.scrolloff = 8
