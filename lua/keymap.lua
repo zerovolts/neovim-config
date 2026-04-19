@@ -40,6 +40,30 @@ vim.keymap.set("i", "<CR>", function()
     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
 end, { expr = true })
 
+-- nvim-tree
+keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
+
+-- Telescope
+keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
+keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
+keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+
+-- Trouble
+keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble" })
+
+-- ToggleTerm
+keymap.set({ "n", "t" }, "<C-j>", "<cmd>ToggleTerm<cr>", { desc = "Toggle Terminal" })
+
+-- Love2D (lua files only)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lua",
+    callback = function()
+        keymap.set("n", "<leader>vv", "<cmd>LoveRun<cr>", { buffer = true, desc = "Run LÖVE" })
+        keymap.set("n", "<leader>vs", "<cmd>LoveStop<cr>", { buffer = true, desc = "Stop LÖVE" })
+    end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)

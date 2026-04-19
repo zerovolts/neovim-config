@@ -1,6 +1,6 @@
 require("base")
 require("keymap")
 require("layouts")
-require("config.lazy")
+require("pack")
 
 vim.cmd.colorscheme("elemental")

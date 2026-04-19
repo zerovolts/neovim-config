@@ -1,5 +1,4 @@
-vim.api.nvim_create_autocmd("User", {
-    pattern = "LazyDone",
+vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         -- Only run layout setup if no files were specified
         if vim.fn.argc() == 0 then
