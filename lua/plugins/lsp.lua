@@ -14,69 +14,7 @@ local lsp_servers = {
     go = "gopls",
 }
 
-local config = {
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-            local registry = require("mason-registry")
-            -- Auto-install servers defined in `lsp_servers`
-            registry.refresh(function()
-                for _, name in pairs(lsp_servers) do
-                    local ok, pkg = pcall(registry.get_package, name)
-                    if ok and not pkg:is_installed() then
-                        pkg:install()
-                    end
-                end
-                for _, name in ipairs(tools) do
-                    local ok, pkg = pcall(registry.get_package, name)
-                    if ok and not pkg:is_installed() then
-                        pkg:install()
-                    end
-                end
-            end)
-        end,
-    },
-
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = { "hrsh7th/cmp-nvim-lsp" },
-        config = function()
-            local cmp = require("cmp")
-            cmp.setup({
-                sources = {
-                    { name = "nvim_lsp" },
-                },
-                snippet = {
-                    expand = function(args)
-                        vim.snippet.expand(args.body)
-                    end,
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ["<Enter>"] = cmp.mapping.confirm({ select = true }),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                }),
-            })
-
-            local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-            setup_language_servers(lsp_capabilities)
-        end,
-    },
-
-    {
-        -- Lightweight plugin for installing Treesitter parsers
-        "romus204/tree-sitter-manager.nvim",
-        dependencies = {}, -- tree-sitter CLI must be installed system-wide
-        config = function()
-            require("tree-sitter-manager").setup({
-                ensure_installed = vim.list_extend(vim.tbl_keys(lsp_servers), { "javascript", "tsx", "markdown" }),
-            })
-        end,
-    },
-}
-
-function setup_language_servers(lsp_capabilities)
+local function setup_language_servers(lsp_capabilities)
     -- The config keys can be anything, but we're passing in the lsp server
     -- name so that we can make use of it in lualine.
     vim.lsp.config[lsp_servers["lua"]] = {
@@ -150,5 +88,67 @@ function setup_language_servers(lsp_capabilities)
         vim.lsp.enable(server_name)
     end
 end
+
+local config = {
+    {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+            local registry = require("mason-registry")
+            -- Auto-install servers defined in `lsp_servers`
+            registry.refresh(function()
+                for _, name in pairs(lsp_servers) do
+                    local ok, pkg = pcall(registry.get_package, name)
+                    if ok and not pkg:is_installed() then
+                        pkg:install()
+                    end
+                end
+                for _, name in ipairs(tools) do
+                    local ok, pkg = pcall(registry.get_package, name)
+                    if ok and not pkg:is_installed() then
+                        pkg:install()
+                    end
+                end
+            end)
+        end,
+    },
+
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = { "hrsh7th/cmp-nvim-lsp" },
+        config = function()
+            local cmp = require("cmp")
+            cmp.setup({
+                sources = {
+                    { name = "nvim_lsp" },
+                },
+                snippet = {
+                    expand = function(args)
+                        vim.snippet.expand(args.body)
+                    end,
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ["<Enter>"] = cmp.mapping.confirm({ select = true }),
+                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+                }),
+            })
+
+            local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+            setup_language_servers(lsp_capabilities)
+        end,
+    },
+
+    {
+        -- Lightweight plugin for installing Treesitter parsers
+        "romus204/tree-sitter-manager.nvim",
+        dependencies = {}, -- tree-sitter CLI must be installed system-wide
+        config = function()
+            require("tree-sitter-manager").setup({
+                ensure_installed = vim.list_extend(vim.tbl_keys(lsp_servers), { "javascript", "tsx", "markdown" }),
+            })
+        end,
+    },
+}
 
 return config
