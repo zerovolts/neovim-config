@@ -60,6 +60,12 @@ hl("StatusLine", { bg = colors.gray3 })
 hl("NormalFloat", { bg = colors.gray3 })
 hl("NvimTreeNormal", { fg = colors.gray7, bg = colors.gray0 })
 
+-- Diagnostics
+hl("DiagnosticVirtualLinesError", { fg = colors.red, bg = colors.gray3 })
+hl("DiagnosticVirtualLinesWarn", { fg = colors.yellow, bg = colors.gray3 })
+hl("DiagnosticVirtualLinesInfo", { fg = colors.blue, bg = colors.gray3 })
+hl("DiagnosticVirtualLinesHint", { fg = colors.green, bg = colors.gray3 })
+
 -- nvim-cmp
 do
     hl("Pmenu", { bg = colors.gray3 })

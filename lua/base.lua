@@ -54,6 +54,11 @@ opt.cursorline = true
 
 opt.showmode = false
 
+vim.diagnostic.config({
+    virtual_text = false,
+    virtual_lines = true,
+})
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 

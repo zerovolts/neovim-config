@@ -74,18 +74,6 @@ local config = {
             })
         end,
     },
-
-    {
-        -- "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        "maan2003/lsp_lines.nvim",
-        event = "LspAttach",
-        config = function()
-            require("lsp_lines").setup()
-            vim.diagnostic.config({
-                virtual_text = false,
-            })
-        end,
-    },
 }
 
 function setup_language_servers(lsp_capabilities)
