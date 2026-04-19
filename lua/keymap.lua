@@ -29,6 +29,12 @@ keymap.set("n", "<leader>p", "<cmd>bprev<cr>")
 
 keymap.set("n", "<C-q>", "<cmd>source $MYVIMRC<cr>")
 
+-- Ghostty expects `<C-/>` and tmux expects `<C-_>`
+keymap.set("n", "<C-/>", "gcc", { remap = true })
+keymap.set("n", "<C-_>", "gcc", { remap = true })
+keymap.set("v", "<C-/>", "gc gv", { remap = true })
+keymap.set("v", "<C-_>", "gc gv", { remap = true })
+
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
