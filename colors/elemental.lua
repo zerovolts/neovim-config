@@ -28,8 +28,8 @@ local function hl(name, opts)
 end
 
 -- Reset colors
-for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
-    vim.api.nvim_set_hl(0, group, {})
+for _, name in ipairs(vim.fn.getcompletion("", "highlight")) do
+    hl(name, {})
 end
 
 vim.opt.guicursor = {
