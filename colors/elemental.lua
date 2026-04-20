@@ -38,6 +38,10 @@ vim.opt.guicursor = {
     "r-cr:hor25-Cursor", -- Replace: horizontal bar with rCursor colors
 }
 
+---------------
+--- General ---
+---------------
+
 hl("Normal", group.default)
 hl("Number", group.literal)
 hl("Statement", group.keyword)
@@ -53,12 +57,8 @@ hl("CursorLine", { bg = colors.gray2 })
 hl("Visual", { bg = colors.gray3 })
 hl("Cursor", group.cursor)
 hl("WinSeparator", { bg = colors.gray0 })
--- hl("MsgArea", { fg = colors.gray7, bg = colors.gray1 })
-
--- Plugins
 hl("StatusLine", { bg = colors.gray3 })
 hl("NormalFloat", { bg = colors.gray3 })
-hl("NvimTreeNormal", { fg = colors.gray7, bg = colors.gray0 })
 
 -- Diagnostics
 hl("DiagnosticVirtualLinesError", { fg = colors.red, bg = colors.gray3 })
@@ -66,21 +66,30 @@ hl("DiagnosticVirtualLinesWarn", { fg = colors.yellow, bg = colors.gray3 })
 hl("DiagnosticVirtualLinesInfo", { fg = colors.blue, bg = colors.gray3 })
 hl("DiagnosticVirtualLinesHint", { fg = colors.green, bg = colors.gray3 })
 
--- nvim-cmp
-do
-    hl("Pmenu", { bg = colors.gray3 })
-    hl("PmenuSel", { bg = colors.gray4 })
-    hl("PmenuSbar", { bg = colors.gray0 })
-    hl("PmenuThumb", { bg = colors.gray5 })
+hl("Pmenu", { bg = colors.gray3 })
+hl("PmenuSel", { bg = colors.gray4 })
+hl("PmenuSbar", { bg = colors.gray0 })
+hl("PmenuThumb", { bg = colors.gray5 })
 
-    hl("CmpItemKindVariable", { fg = colors.gray7 })
-    hl("CmpItemKindFunction", group.fn)
-    hl("CmpItemKindMethod", group.fn)
-    hl("CmpItemKindKeyword", group.keyword)
-    hl("CmpItemKindClass", group.type)
-    hl("CmpItemKindModule", group.type)
-    hl("CmpItemKindStruct", group.type)
-end
+hl("DiffAdd", { bg = colors.green_dark })
+hl("DiffDelete", { bg = colors.red_dark })
+hl("DiffChange", { bg = colors.yellow_dark })
+hl("DiffText", { bg = colors.blue_dark })
+
+-----------------------
+--- Plugin-specific ---
+-----------------------
+
+hl("NvimTreeNormal", { fg = colors.gray7, bg = colors.gray0 })
+
+hl("DiffviewDiffDeleteDim", { fg = colors.gray3 })
+hl("DiffviewDiffAddAsDelete", { fg = colors.gray3 })
+hl("DiffviewFilePanelTitle", { fg = colors.green })
+hl("DiffviewFilePanelCounter", { fg = colors.red })
+
+hl("GitSignsAdd", { fg = colors.green })
+hl("GitSignsChange", { fg = colors.yellow })
+hl("GitSignsDelete", { fg = colors.red })
 
 ------------------------------
 --- Treesitter definitions ---
@@ -113,17 +122,3 @@ hl("@punctuation", group.punctuation)
 hl("@markup.heading", group.fn)
 hl("@markup.list", group.fn)
 hl("@markup.raw.block", { bg = colors.gray0 })
-
-hl("DiffAdd", { bg = colors.green_dark })
-hl("DiffDelete", { bg = colors.red_dark })
-hl("DiffChange", { bg = colors.yellow_dark })
-hl("DiffText", { bg = colors.blue_dark })
-
-hl("DiffviewDiffDeleteDim", { fg = colors.gray3 })
-hl("DiffviewDiffAddAsDelete", { fg = colors.gray3 })
-hl("DiffviewFilePanelTitle", { fg = colors.green })
-hl("DiffviewFilePanelCounter", { fg = colors.red })
-
-hl("GitSignsAdd", { fg = colors.green })
-hl("GitSignsChange", { fg = colors.yellow })
-hl("GitSignsDelete", { fg = colors.red })
