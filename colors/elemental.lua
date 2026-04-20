@@ -123,3 +123,7 @@ hl("DiffviewDiffDeleteDim", { fg = colors.gray3 })
 hl("DiffviewDiffAddAsDelete", { fg = colors.gray3 })
 hl("DiffviewFilePanelTitle", { fg = colors.green })
 hl("DiffviewFilePanelCounter", { fg = colors.red })
+
+hl("GitSignsAdd", { fg = colors.green })
+hl("GitSignsChange", { fg = colors.yellow })
+hl("GitSignsDelete", { fg = colors.red })
