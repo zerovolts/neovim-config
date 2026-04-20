@@ -8,7 +8,11 @@ return {
     gray6 = "#8490ae",
     gray7 = "#d6dbe7",
     red = "#ff606c",
+    red_dark = "#512e31",
     green = "#48bca6",
+    green_dark = "#24443d",
     yellow = "#ffe66e",
+    yellow_dark = "#5f593b",
     blue = "#709bed",
+    blue_dark = "#384662",
 }

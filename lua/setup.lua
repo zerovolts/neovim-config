@@ -282,3 +282,5 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
 })
 
 require("love2d").setup()
+
+require("diffview").setup({ enhanced_diff_hl = true })

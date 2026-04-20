@@ -40,6 +40,15 @@ vim.keymap.set("i", "<CR>", function()
     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
 end, { expr = true })
 
+-- Diffview
+keymap.set("n", "<leader>d", function()
+    if next(require("diffview.lib").views) == nil then
+        vim.cmd("DiffviewOpen")
+    else
+        vim.cmd("DiffviewClose")
+    end
+end)
+
 -- nvim-tree
 keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
 

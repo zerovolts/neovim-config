@@ -32,6 +32,8 @@ vim.pack.add({
 
     -- Git actions and sign-column information
     gh("lewis6991/gitsigns.nvim"),
+    -- Side-by-side diff view
+    gh("sindrets/diffview.nvim"),
 
     -- Terminal tray
     gh("akinsho/toggleterm.nvim"),

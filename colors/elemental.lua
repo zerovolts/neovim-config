@@ -113,3 +113,13 @@ hl("@punctuation", group.punctuation)
 hl("@markup.heading", group.fn)
 hl("@markup.list", group.fn)
 hl("@markup.raw.block", { bg = colors.gray0 })
+
+hl("DiffAdd", { bg = colors.green_dark })
+hl("DiffDelete", { bg = colors.red_dark })
+hl("DiffChange", { bg = colors.yellow_dark })
+hl("DiffText", { bg = colors.blue_dark })
+
+hl("DiffviewDiffDeleteDim", { fg = colors.gray3 })
+hl("DiffviewDiffAddAsDelete", { fg = colors.gray3 })
+hl("DiffviewFilePanelTitle", { fg = colors.green })
+hl("DiffviewFilePanelCounter", { fg = colors.red })

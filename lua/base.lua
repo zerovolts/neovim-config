@@ -44,6 +44,7 @@ api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
 vim.opt.fillchars = {
     vert = " ",
     eob = " ",
+    diff = "╱",
 }
 
 opt.completeopt = { "menu", "menuone", "noinsert", "noselect", "popup" }
