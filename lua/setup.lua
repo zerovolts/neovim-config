@@ -1,5 +1,5 @@
 -- Non-LSP tools (formatters/linters) to auto-install via Mason
-local tools = { "stylua", "selene", "black", "ruff" }
+local tools = { "stylua", "selene", "ruff" }
 
 -- Each of these LSP servers gets auto-installed along with the Treesitter grammar.
 -- They still need to be configured below.
@@ -250,15 +250,12 @@ require("trouble").setup()
 require("toggleterm").setup()
 
 require("conform").setup({
-    formatters = {
-        black = { prepend_args = { "--fast" } },
-    },
     formatters_by_ft = {
         lua = { "stylua" },
-        python = { "black" },
+        python = { "ruff_format" },
     },
     format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = 1000,
         lsp_fallback = true,
     },
 })
