@@ -40,6 +40,9 @@ vim.keymap.set("i", "<CR>", function()
     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
 end, { expr = true })
 
+-- Oil
+keymap.set("n", "<leader>e", "<cmd>Oil<cr>")
+
 -- Diffview
 keymap.set("n", "<leader>d", function()
     if next(require("diffview.lib").views) == nil then

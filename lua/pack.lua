@@ -24,6 +24,9 @@ vim.pack.add({
     -- Status line
     gh("nvim-lualine/lualine.nvim"),
 
+    -- File explorer
+    gh("stevearc/oil.nvim"),
+
     -- Diagnostic list
     gh("folke/trouble.nvim"),
 

@@ -217,6 +217,21 @@ require("lualine").setup({
     },
 })
 
+require("oil").setup({
+    default_file_explorer = true,
+})
+
+-- Open Oil on startup when `nvim` is called without arguments
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        if vim.fn.argc() == 0 then
+            vim.schedule(function()
+                require("oil").open()
+            end)
+        end
+    end,
+})
+
 require("trouble").setup()
 require("toggleterm").setup()
 
