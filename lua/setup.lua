@@ -1,5 +1,5 @@
 -- Non-LSP tools (formatters/linters) to auto-install via Mason
-local tools = { "stylua", "selene", "ruff" }
+local tools = { "stylua", "selene", "ruff", "staticcheck" }
 
 -- Each of these LSP servers gets auto-installed along with the Treesitter grammar.
 -- They still need to be configured below.
@@ -239,6 +239,7 @@ require("conform").setup({
     formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_format" },
+        go = { "gofmt" },
     },
     format_on_save = {
         timeout_ms = 1000,
@@ -249,6 +250,7 @@ require("conform").setup({
 require("lint").linters_by_ft = {
     lua = { "selene" },
     python = { "ruff" },
+    go = { "staticcheck" },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
