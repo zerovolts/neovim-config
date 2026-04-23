@@ -217,35 +217,6 @@ require("lualine").setup({
     },
 })
 
-require("nvim-tree").setup({
-    update_focused_file = {
-        enable = true,
-        update_root = false,
-    },
-    renderer = {
-        icons = {
-            git_placement = "after",
-            glyphs = {
-                folder = {
-                    arrow_closed = "",
-                    arrow_open = "",
-                    default = "",
-                    open = "",
-                },
-                git = {
-                    unstaged = "×",
-                    staged = "",
-                    unmerged = "",
-                    untracked = "?",
-                    renamed = "",
-                    deleted = "",
-                    ignored = "∅",
-                },
-            },
-        },
-    },
-})
-
 require("trouble").setup()
 require("toggleterm").setup()
 

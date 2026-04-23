@@ -49,9 +49,6 @@ keymap.set("n", "<leader>d", function()
     end
 end)
 
--- nvim-tree
-keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
-
 -- Telescope
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
 keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")

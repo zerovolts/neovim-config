@@ -27,9 +27,6 @@ vim.pack.add({
     -- Diagnostic list
     gh("folke/trouble.nvim"),
 
-    -- File explorer
-    gh("nvim-tree/nvim-tree.lua"),
-
     -- Git actions and sign-column information
     gh("lewis6991/gitsigns.nvim"),
     -- Side-by-side diff view
