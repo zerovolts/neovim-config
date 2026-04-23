@@ -50,8 +50,12 @@
 ## Commenting
 - `<C-/>` — Toggle line comment (Normal/Visual)
 
+## File Explorer (Oil)
+- `<Leader>e` — Open Oil (parent directory of current file)
+- `-` — Go up to parent directory (inside Oil)
+- `<CR>` — Open file or directory
+
 ## UI
-- `<Leader>e` — Toggle NvimTree
 - `<Leader>xx` — Toggle Trouble diagnostics
 
 ## LÖVE (Love2D)

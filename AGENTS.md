@@ -1,6 +1,6 @@
 # Neovim Config — Agent Guidelines
 
-This is a personal Neovim configuration written in Lua, managed with **lazy.nvim**.
+This is a personal Neovim configuration written in Lua, managed with **vim.pack** (Neovim's built-in package manager).
 
 ---
 
@@ -8,27 +8,26 @@ This is a personal Neovim configuration written in Lua, managed with **lazy.nvim
 
 ```
 ~/.config/nvim/
-├── init.lua              # Entry point — requires base, keymap, layouts, config/lazy
-├── lazy-lock.json        # Plugin lockfile (commit on plugin changes)
+├── init.lua              # Entry point — requires base, keymap, pack, setup
 ├── colors/
-│   └── example.lua       # Custom colorscheme definition
+│   └── elemental.lua     # Custom colorscheme definition
 └── lua/
     ├── base.lua          # vim.opt settings, autocmds, global state
     ├── keymap.lua        # Global keymaps + LspAttach buffer keymaps
     ├── colors.lua        # Exported color palette table
-    ├── layouts.lua       # Window layout commands, LazyDone autocmd
-    ├── config/
-    │   └── lazy.lua      # lazy.nvim bootstrap and setup
-    └── plugins/
-        ├── colorschemes.lua
-        ├── editor.lua
-        ├── git.lua
-        ├── love2d.lua
-        ├── lsp.lua       # mason, nvim-cmp, treesitter, LSP configs
-        └── ui.lua        # lualine, nvim-tree, telescope, trouble, toggleterm
+    ├── pack.lua          # Plugin list (vim.pack.add)
+    └── setup.lua         # Plugin setup calls (LSP, treesitter, lualine, oil, etc.)
 ```
 
-All files under `lua/plugins/` are auto-imported by lazy.nvim via `{ import = "plugins" }`.
+---
+
+## Documentation Maintenance
+
+**After any change that adds, removes, or rebinds a keymap, adds or removes a plugin, or alters
+repo structure — update both of these files before finishing:**
+
+- `AGENTS.md` — repo structure, conventions, any new patterns introduced
+- `cheatsheet.md` — keymaps (add new ones, remove old ones, keep sections accurate)
 
 ---
 
@@ -38,21 +37,14 @@ There is no build system, test framework, or linter config in this repo. No Make
 package.json, or scripts directory exists.
 
 **Runtime validation** (inside Neovim):
-- `:Lazy` — open plugin manager UI, check for errors
-- `:Lazy sync` — update plugins and regenerate lockfile
-- `:TSUpdate` — update treesitter parsers (declared as a `build` key in `lsp.lua`)
 - `:checkhealth` — diagnose plugin/LSP/runtime issues
 - `:messages` — review recent Neovim messages/errors
 
-**External tooling (optional, not configured):**
-- `stylua` — Lua formatter (not yet set up; would use `.stylua.toml`)
-- `luacheck` — Lua linter (not configured)
+**External tooling:**
+- `stylua` — Lua formatter (configured via `conform.nvim`)
+- `selene` — Lua linter (configured via `nvim-lint`)
 
-To validate changes, source the file in Neovim:
-```
-:luafile %
-```
-or restart Neovim and check `:messages` / `:checkhealth`.
+To validate changes, restart Neovim and check `:messages` / `:checkhealth`.
 
 ---
 
@@ -97,31 +89,9 @@ or restart Neovim and check `:messages` / `:checkhealth`.
 
 ### Plugin Configuration
 
-Choose the appropriate style based on complexity:
-
-1. **`config = true`** — zero-config plugins (calls `plugin.setup({})` automatically):
-   ```lua
-   { "williamboman/mason.nvim", config = true }
-   ```
-
-2. **`opts = { ... }`** — declarative setup (lazy calls `setup(opts)` automatically); prefer
-   this over `config = function()` when no local variables are needed:
-   ```lua
-   {
-       "nvim-lualine/lualine.nvim",
-       opts = { options = { theme = { ... } } }
-   }
-   ```
-
-3. **`config = function() ... end`** — imperative setup; use when local variables,
-   conditional logic, or multiple setup calls are required:
-   ```lua
-   config = function()
-       local cmp = require("cmp")
-       cmp.setup({ ... })
-       setup_language_servers()
-   end
-   ```
+Plugins are listed in `pack.lua` via `vim.pack.add(...)` and configured in `setup.lua` via
+`require("plugin").setup({ ... })`. Keep the two concerns separate — `pack.lua` is the
+manifest, `setup.lua` is the configuration.
 
 ### Keymaps
 
@@ -133,15 +103,7 @@ Two patterns are used depending on scope:
    keymap.set("n", "<Esc>", ":nohlsearch<CR><Esc>", { silent = true })
    ```
 
-2. **Plugin keymaps** — use lazy.nvim's `keys = { ... }` spec; this also triggers lazy-loading:
-   ```lua
-   keys = {
-       { "<leader>ff", "<cmd>Telescope find_files<cr>" },
-       { "<leader>fg", "<cmd>Telescope live_grep<cr>" },
-   }
-   ```
-
-3. **Buffer-local LSP keymaps** — defined inside an `LspAttach` autocmd in `keymap.lua`:
+2. **Buffer-local LSP keymaps** — defined inside an `LspAttach` autocmd in `keymap.lua`:
    ```lua
    vim.api.nvim_create_autocmd("LspAttach", {
        desc = "LSP actions",
@@ -224,11 +186,11 @@ this file — do not hardcode hex values inline in plugin configs.
 | Indentation | 4 spaces |
 | Variable naming | snake_case |
 | Globals | Avoid — use `local` always |
-| Plugin opts (simple) | `opts = { ... }` |
-| Plugin opts (complex) | `config = function() ... end` |
+| Plugin manifest | `lua/pack.lua` via `vim.pack.add` |
+| Plugin setup | `lua/setup.lua` via `require(...).setup(...)` |
 | Keymaps (global) | `lua/keymap.lua` via `vim.keymap.set` |
-| Keymaps (plugin) | `keys = { ... }` in lazy spec |
 | Keymaps (LSP) | `LspAttach` autocmd in `keymap.lua` |
 | Autocommands | `nvim_create_autocmd` with `desc` |
 | LSP servers | Native 0.11+ API (`vim.lsp.config` + `vim.lsp.enable`) |
 | Colors | Define in `lua/colors.lua`, import via `require("colors")` |
+| Docs | Update `AGENTS.md` + `cheatsheet.md` after keymap/plugin/structure changes |
